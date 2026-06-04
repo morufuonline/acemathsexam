@@ -4,4 +4,4 @@ This is an advert website developed to promote a book titled "AceMathsExams". It
 
 Teck Stacks Used
 ----------------
-HTML, CSS, JavaScript, PHP and MySQL.
+HTML, CSS, JavaScript, JQuery, PHP and MySQL.
