@@ -1,0 +1,41 @@
+Options -Indexes
+DirectoryIndex index.php about-the-author.php 404.php
+RewriteEngine On
+RewriteBase /acemathsexam/
+#RewriteCond %{HTTP_HOST} !^localhost/acemathsexam$ [NC]
+#RewriteRule ^(.*)$ http://localhost/acemathsexam/$1 [L,R=301]
+
+<FilesMatch "\.(htaccess|htpasswd|ini|phps|fla|psd|log|sh)$">
+ Order Allow,Deny
+ Deny from all
+</FilesMatch>
+
+# stop hotlinking and serve alternate content
+# <IfModule mod_rewrite.c>
+#  RewriteEngine on
+#  RewriteCond %{HTTP_REFERER} !^$
+#  RewriteCond %{HTTP_REFERER} !^http://(www\.)?acemathsexam\.com/.*$ [NC]
+#  RewriteRule .*\.(gif|jpg|png)$ - [F,L]
+# </ifModule>
+
+
+#========================================Admin Portal=====================================
+RewriteRule ame2017/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/$ /acemathsexam/ame2017/$1.php?$2=$3&$4=$5&$6=$7&$8=$9 [L]
+RewriteRule ame2017/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/$ /acemathsexam/ame2017/$1.php?$2=$3&$4=$5&$6=$7 [L]
+RewriteRule ame2017/(.*)/(.*)/(.*)/(.*)/(.*)/$ /acemathsexam/ame2017/$1.php?$2=$3&$4=$5 [L]
+RewriteRule ame2017/(.*)/(.*)/(.*)/$ /acemathsexam/ame2017/$1.php?$2=$3 [L]
+
+#========================================Privates=====================================
+RewriteRule privates/(.*)/(.*)/(.*)/(.*)/(.*)/$ /acemathsexam/privates/$1.php?$2=$3&$4=$5 [L]
+RewriteRule privates/(.*)/(.*)/(.*)/$ /acemathsexam/privates/$1.php?$2=$3 [L]
+
+RewriteCond %{THE_REQUEST} ^[A-Z0-9]{3,}\s([^.]+)\.php [NC]
+RewriteRule ^ %1 [R=301,L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*?)/?$ $1.php [NC,L]
+
+# provide a universal error document
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ /acemathsexam/error.php [L]
